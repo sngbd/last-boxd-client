@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Last Boxd</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="./script.js"></script>
+</head>
+<style>
+  .main {
+    height: 100%;
+  }
+  @media (max-width: 992px) {
+    .main {
+      height: 0%;
+    }
+  }
+</style>
+<body>
+  <div class="container">
+    <div class="main row justify-content-center align-items-center">
+      <div class="col-lg-6">
+        <h1><b>Letterboxd</b> collage generator</h1>
+        <form action="javascript:getChart()">
+          <div class="form-group my-2">
+            <div class="my-2">
+              <input class="form-control" style="width: 200px;" id="user" type="text" placeholder="Letterboxd username" required>
+            </div>
+            <div class="my-2">
+              <select class="form-control" style="width: 60px;" id="grid">
+                <option value="2">2x2</option>
+                <option selected value="3">3x3</option>
+                <option value="4">4x4</option>
+                <option value="5">5x5</option>
+              </select>
+            </div>
+          </div>
+          <input class="btn btn-primary my-2" type="submit" value="Submit">
+          <div>
+            <ul>
+              <li>Display details (title, director, rating)? <input id="details" type="checkbox" checked></li>
+            </ul>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-6">
+        <h4 id="loading" hidden></h4>
+        <img id="chart" hidden src="" alt="chart" width="500">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
