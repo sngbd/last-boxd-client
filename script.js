@@ -7,9 +7,8 @@ const getChart = () => {
     details = 'off'
   }
 
-  const time = grid > 3 ? '2 mins' : '1 min'
   document.getElementById('loading').className = 'text-secondary'
-  document.getElementById('loading').innerHTML = `Loading (approx. ${time} for ${grid}x${grid} grid)<span id='wait'>.</span>`
+  document.getElementById('loading').innerHTML = `Loading<span id='wait'>.</span>`
   document.getElementById('loading').hidden = false
 
   const loading = window.setInterval(() => {
@@ -34,7 +33,7 @@ const getChart = () => {
     document.getElementById('chart').src = `data:image/jpeg;base64,${response.image}`
     clearInterval(loading);
   })
-  .catch((error) => {
+  .catch(() => {
     document.getElementById('loading').className = 'text-danger'
     document.getElementById('loading').innerHTML = 'Failed to fetch data'
     clearInterval(loading);
