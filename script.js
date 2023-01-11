@@ -90,7 +90,7 @@ const getChart = () => {
       wait.innerHTML += '.';
     }, 1000);
 
-  fetch(`http://localhost:8000/${username}?grid=${grid}&details=${details}`, {
+  fetch(`https://last-boxd-production.up.railway.app/${username}?grid=${grid}&details=${details}`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
