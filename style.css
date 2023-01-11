@@ -1,0 +1,12 @@
+.square {
+  width: 500px;
+  height: 750px;
+  border: 0.5px solid gray;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.grid-item {
+  border: 0.5px solid black;
+}
