@@ -1,6 +1,5 @@
 function handleResize() {
   if (window.innerWidth <= 992) {
-    console.log(window.innerWidth)
     document.querySelector("#container").className = "mx-4 my-4"
   } else {
     document.querySelector("#container").className = "container h-100 justify-content-between d-flex"
