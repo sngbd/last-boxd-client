@@ -14,9 +14,9 @@
     let matcher;
     const onUpdate = () => {
       if (matcher.matches) {
-        favicon = 'lb-dark.svg'
+        favicon = 'lb-dark.svg';
       } else {
-        favicon = 'lb-light.svg'
+        favicon = 'lb-light.svg';
       }
     }
 
@@ -27,51 +27,54 @@
   })
   
   const innerElement = () => {
-    let innerEl = ""
+    let innerEl = "";
     if (title.checked) {
-      innerEl += "<small class='item'>Title <br></small>"
+      innerEl += "<small class='item'>Title <br></small>";
     } 
     if (director.checked) {
-      innerEl += "<small class='item'>Director <br></small>"
+      innerEl += "<small class='item'>Director <br></small>";
     }
     if (rating.checked) {
-      innerEl += "<small class='item'>Rating</small>"
+      innerEl += "<small class='item'>Rating</small>";
     }
     return innerEl;
   }
   
   const squareOperation = () => {
-    let innerElem = ""
-    for (let i = 0; i < parseInt(col.value) * parseInt(row.value); i++) {
-      square.style["grid-template-columns"] = `repeat(${col.value}, 1fr)`;
-      square.style["grid-template-rows"] = `repeat(${row.value}, 1fr)`;
-      innerElem += `<div class="grid-item">` + innerElement() + `</div> `
-    }
-    square.innerHTML = innerElem
+    let innerElem = "";
+    const colValue = parseInt(col.value);
+    const rowValue = parseInt(row.value);
 
-    const gridItems = document.querySelectorAll('.grid-item')
+   for (let i = 0; i < colValue * rowValue; i++) {
+      square.style["grid-template-columns"] = `repeat(${colValue}, 1fr)`;
+      square.style["grid-template-rows"] = `repeat(${rowValue}, 1fr)`;
+      innerElem += `<div class="grid-item">` + innerElement() + `</div> `;
+    }
+    square.innerHTML = innerElem;
+
+    const gridItems = document.querySelectorAll('.grid-item');
     gridItems.forEach((gi) => {
       gi.innerHTML = innerElement();
-    })
-  }
+    });
+  };
 
   const getChart = () => {
-    let titleStatus = 'on'
-    let directorStatus = 'on'
-    let ratingStatus = 'on'
+    let titleStatus = 'on';
+    let directorStatus = 'on';
+    let ratingStatus = 'on';
 
     if (!title.checked) {
-      titleStatus = 'off'
+      titleStatus = 'off';
     }
     if (!director.checked) {
-      directorStatus = 'off'
+      directorStatus = 'off';
     }
     if (!rating.checked) {
-      ratingStatus = 'off'
+      ratingStatus = 'off';
     }
 
-    loading.className = 'text-secondary'
-    loading.hidden = false
+    loading.className = 'text-secondary';
+    loading.hidden = false;
     
     const loadingOperation = window.setInterval(() => {
       if (wait.innerHTML.length > 3) 
@@ -89,38 +92,22 @@
     })
     .then((response) => response.json())
     .then((response) => {
-      if (col.value < row.value) {
-        chart.style.width = 'auto'
-        if (screen.width <= 600) {
-          chart.style.height = '450'
-        } else {
-          chart.style.height = '750'
-        }
-      } else if (col.value >= row.value) {
-        if (screen.width <= 600) {
-          chart.style.width = '300'
-        } else {
-          chart.style.width = '500'
-        }
-        chart.style.height = 'auto'
-      }
-
-      square.hidden = true
-      loading.hidden = true
-      chart.hidden = false
-      chart.src = `data:image/jpeg;base64,${response.image}`
-      dlchart.setAttribute('href', `data:image/jpeg;base64,${response.image}`)
+      square.hidden = true;
+      loading.hidden = true;
+      chart.hidden = false;
+      chart.src = `data:image/jpeg;base64,${response.image}`;
+      dlchart.setAttribute('href', `data:image/jpeg;base64,${response.image}`);
       clearInterval(loadingOperation);
     })
     .catch(() => {
-      loading.className = 'text-danger'
-      loading.innerHTML = 'Failed to fetch data'
+      loading.className = 'text-danger';
+      loading.innerHTML = 'Failed to fetch data';
       clearInterval(loadingOperation);
     })
   }
 </script>
 
-<div class="container my-5 justify-content-evenly d-flex flex-wrap">
+<div class="container my-5 justify-content-evenly d-flex flex-wrap h-100">
   <div class="row align-items-center d-flex">
     <div>
       <h1 class="mb-4"><span class="letterboxd">Letterboxd</span> collage generator</h1>
@@ -158,13 +145,13 @@
       </form>
     </div>
   </div>
-  <div class="row align-items-center d-flex">
+  <div class="row align-items-center d-flex chart mh-100">
     <div>
       <h4 bind:this={loading} hidden>Loading<span bind:this={wait}>.</span></h4>
       <a bind:this={dlchart} href download>
-        <img class="img-fluid" bind:this={chart} hidden src="" alt="chart" width="500">
+        <img class="img-fluid" bind:this={chart} hidden src="" alt="chart">
       </a>
-      <div class="square mw-100" bind:this={square}>
+      <div class="square" bind:this={square}>
       </div>
     </div>
   </div>
