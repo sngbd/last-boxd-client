@@ -178,7 +178,7 @@
               <div class="range-slider_line">
                 <div id="slider_line" class="range-slider_line-fill"></div>
               </div>
-              <input id="slider_input" class="range-slider_input" type="range" value="3" min="1" max="16" bind:this={col}>
+              <input id="slider_input" class="range-slider_input" type="range" value="3" min="1" max="10" bind:this={col}>
             </div>
             <b>Row:</b>
             <div class="range-slider">
@@ -186,7 +186,7 @@
               <div class="range-slider_line">
                 <div id="slider_line_row" class="range-slider_line-fill"></div>
               </div>
-              <input id="slider_input_row" class="range-slider_input" type="range" value="3" min="1" max="16" bind:this={row}>
+              <input id="slider_input_row" class="range-slider_input" type="range" value="3" min="1" max="10" bind:this={row}>
             </div>
             <div bind:this={note} hidden class="mb-2">
               <i class="text-danger">Note: This may take longer to load...</i>
