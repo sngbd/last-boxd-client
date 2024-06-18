@@ -8,7 +8,7 @@
   import { onMount } from "svelte";
 
   let favicon = 'lb-dark.svg';
-  let title, director, rating, square, chart, dlchart, loading, wait, col, row, user, note;
+  let title, director, rating, square, chart, dlchart, loading, user, note;
 
   onMount(() => {
     let matcher;
@@ -25,6 +25,9 @@
 
     const slider_input = document.getElementById('slider_input');
     const slider_input_row = document.getElementById('slider_input_row');
+    const time_range_check = document.getElementById('time_range_check');
+    const time_range = document.getElementById('time_range');
+    const col_row = document.getElementById('col_row');
 
     showSliderValueCol();
     window.addEventListener("resize",showSliderValueCol);
@@ -33,6 +36,16 @@
     showSliderValueRow();
     window.addEventListener("resize",showSliderValueRow);
     slider_input_row.addEventListener('input', showSliderValueRow, false);
+
+    time_range_check.addEventListener('change', () => {
+      if (time_range_check.checked) {
+        time_range.disabled = false;
+        col_row.hidden = true;
+      } else {
+        time_range.disabled = true;
+        col_row.hidden = false;
+      }
+    }, false)
 
     onUpdate();
     squareOperation();
@@ -54,8 +67,8 @@
   
   const squareOperation = () => {
     let innerElem = "";
-    let colValue = parseInt(col.value);
-    let rowValue = parseInt(row.value);
+    let colValue = parseInt(slider_input.value);
+    let rowValue = parseInt(slider_input_row.value);
 
     if (rowValue * colValue > 49) {
       note.hidden = false;
@@ -102,13 +115,20 @@
     loading.innerHTML = 'Loading';
     
     const loadingOperation = window.setInterval(() => {
-      if (wait.innerHTML.length > 3) 
-        wait.innerHTML = '.';
+      if (loading.innerHTML.length > 9) 
+        loading.innerHTML = 'Loading';
       else 
-        wait.innerHTML += '.';
+        loading.innerHTML += '.';
       }, 1000);
+    
+    let apiLink;
+    if (!time_range_check.checked) {
+      apiLink = `${import.meta.env.VITE_LAST_BOXD_API}/${user.value}?col=${slider_input.value}&row=${slider_input_row.value}&title=${titleStatus}&director=${directorStatus}&rating=${ratingStatus}`
+    } else {
+      apiLink = `${import.meta.env.VITE_LAST_BOXD_API}/${user.value}?time=${time_range.value}&title=${titleStatus}&director=${directorStatus}&rating=${ratingStatus}`
+    }
 
-    fetch(`${import.meta.env.VITE_LAST_BOXD_API}/${user.value}?col=${col.value}&row=${row.value}&title=${titleStatus}&director=${directorStatus}&rating=${ratingStatus}`, {
+    fetch(apiLink, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -172,21 +192,32 @@
         <div class="mb-2">
           <input class="form-control mb-1" style="width: 200px; display: inline-block;" bind:this={user} type="text" placeholder="Letterboxd username" required>
           <div class="mt-3">
-            <b>Column:</b>
-            <div class="range-slider">
-              <div id="slider_thumb" class="range-slider_thumb"></div>
-              <div class="range-slider_line">
-                <div id="slider_line" class="range-slider_line-fill"></div>
+            <div id="col_row">
+              <b>Column:</b>
+              <div class="range-slider">
+                <div id="slider_thumb" class="range-slider_thumb"></div>
+                <div class="range-slider_line">
+                  <div id="slider_line" class="range-slider_line-fill"></div>
+                </div>
+                <input id="slider_input" class="range-slider_input" type="range" value="3" min="1" max="10">
               </div>
-              <input id="slider_input" class="range-slider_input" type="range" value="3" min="1" max="10" bind:this={col}>
+              <b>Row:</b>
+              <div class="range-slider">
+                <div id="slider_thumb_row" class="range-slider_thumb"></div>
+                <div class="range-slider_line">
+                  <div id="slider_line_row" class="range-slider_line-fill"></div>
+                </div>
+                <input id="slider_input_row" class="range-slider_input" type="range" value="3" min="1" max="10">
+              </div>
             </div>
-            <b>Row:</b>
-            <div class="range-slider">
-              <div id="slider_thumb_row" class="range-slider_thumb"></div>
-              <div class="range-slider_line">
-                <div id="slider_line_row" class="range-slider_line-fill"></div>
-              </div>
-              <input id="slider_input_row" class="range-slider_input" type="range" value="3" min="1" max="10" bind:this={row}>
+            <div class="mb-2">
+              <input type="checkbox" id="time_range_check">
+              <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-2 pr-2 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="time_range" disabled>
+                <option value="1">1 Week</option>
+                <option value="2">1 Month</option>
+                <option value="3">3 Months</option>
+                <option value="4">1 Year</option>
+              </select> 
             </div>
             <div bind:this={note} hidden class="mb-2">
               <i class="text-danger">Note: This may take longer to load...</i>
@@ -206,7 +237,7 @@
   </div>
   <div class="row align-items-center d-flex chart mh-100">
     <div>
-      <h4 bind:this={loading} hidden>Loading<span bind:this={wait}>.</span></h4>
+      <h4 bind:this={loading} hidden>Loading</h4>
       <a bind:this={dlchart} href download>
         <img class="img-fluid" bind:this={chart} hidden src="" alt="chart">
       </a>
@@ -218,6 +249,6 @@
 <footer class="justify-content-center align-items-center d-flex container w-100">
   <small class="text-center">
     <i>This product uses the <a href="https://themoviedb.org/">TMDB</a> API but is not endorsed or certified by <a href="https://themoviedb.org/">TMDB</a>.</i><br>
-    <span>© Last Boxd 2023 | <a href="mailto:lastboxd@gmail.com">Contact</a></span>
+    <span>© Last Boxd 2024 | <a href="mailto:lastboxd@gmail.com">Contact</a></span>
   </small>
 </footer>
