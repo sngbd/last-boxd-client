@@ -1,13 +1,8 @@
 <svelte:window on:change={squareOperation, showSliderValueCol, showSliderValueRow} />
 
-<svelte:head>
-	<link rel="icon" type="image/x-icon" href={favicon}>
-</svelte:head>
-
 <script>
   import { onMount } from "svelte";
 
-  let favicon = 'lb-dark.svg';
   let title, director, rating, square, chart, dlchart, loading, note;
   let username = '';
   let isButtonDisabled = true;
@@ -18,18 +13,6 @@
   $: isButtonDisabled = username.trim() === '';
 
   onMount(() => {
-    let matcher;
-    const onUpdate = () => {
-      if (matcher.matches) {
-        favicon = 'lb-dark.svg';
-      } else {
-        favicon = 'lb-light.svg';
-      }
-    }
-
-    matcher = window.matchMedia("(prefers-color-scheme: dark)");
-    matcher.addListener(onUpdate);
-
     const slider_input = document.getElementById('slider_input');
     const slider_input_row = document.getElementById('slider_input_row');
     const time_range_check = document.getElementById('time_range_check');
@@ -53,7 +36,6 @@
       }
     }, false)
 
-    onUpdate();
     squareOperation();
   })
   
