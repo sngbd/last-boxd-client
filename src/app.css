@@ -1,95 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 
-.square {
-  width: 500px;
-  height: 750px;
-  border: 0.5px solid gray;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+ a {
+  @apply text-green-500 hover:underline;
+ }
+ input[type="checkbox"] {
+  @apply accent-green-500 rounded focus:ring-green-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600;
+ }
 }
 
-.chart {
-  max-width: 500px;
-  max-height: 750px;
-}
-
-.grid-item {
-  border: 0.5px solid black;
-}
-
-.letterboxd {
-  font-family: 'Archivo Black', sans-serif;
-}
-
-.range-slider {
-	position: relative;
-	width: 20rem;
-	height: 5rem;
-}
-
-.range-slider_input {
-	width: 100%;
-	position: absolute;
-	top: 50%;
-	z-index: 3;
-	transform: translateY(-50%);
-	-webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 4rem;
-  opacity: 0;
-	margin: 0;
-}
-
-.range-slider_input::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-	border-radius: 50%;
-	opacity: 0;
-}
-
-.range-slider_input::-moz-range-thumb {
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-	border-radius: 50%;
-	opacity: 0;
-}
-
-.range-slider_thumb {
-	width: 2.3rem;
-	height: 2.3rem;
-	border: 0.1rem solid #303030;
-	border-radius: 50%;
-	position: absolute;
-	left: 0;
-	top: 50%;
-	transform: translateY(-50%);
-	background-color: #f4f4f4;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 1rem;
-	color: #303030;
-	z-index: 2;
-}
-
-.range-slider_line {
-	height: 0.2rem;
-	width: 100%;
-	background-color: #e1e1e1;
-	top: 50%;
-	transform: translateY(-50%);
-	left: 0;
-	position: absolute;
-	z-index: 1;
-}
-
-@media (max-width: 800px) {
+{{/* @media (max-width: 800px) {
   .square {
     width: 400px;
     height: 600px;
@@ -135,4 +60,4 @@
   .item {
     font-size: 0.525rem;
   }
-}
+} */}}
