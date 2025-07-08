@@ -270,6 +270,6 @@
   </div>
   <footer class="text-sm text-center p-4 justify-content-center align-items-center">
     <i>This product uses the <a href="https://themoviedb.org/">TMDB</a> API but is not endorsed or certified by <a href="https://themoviedb.org/">TMDB</a>.</i><br>
-    <span>© Last Boxd 2024 | <a href="mailto:lastboxd@gmail.com">Contact</a></span>
+    <span>© Last Boxd 2025 | <a href="mailto:lastboxd@gmail.com">Contact</a></span>
   </footer>
 </div>
