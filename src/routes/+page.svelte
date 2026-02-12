@@ -301,6 +301,7 @@
             </label>
             <span class="text-sm text-[#90929a] mr-2">Time range</span>
             <select
+              id="time_range"
               class="flex-1 text-sm"
               class:opacity-100={!isTimeDisabled}
               disabled={isTimeDisabled}
